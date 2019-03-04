@@ -1,0 +1,966 @@
+
+   <!DOCTYPE html>
+   <html lang="en">
+   <head id="head">
+       <title>HiLIT</title>
+       <meta name="_csrf_parameter" content="_csrf" /><meta name="_csrf_header" content="X-XSRF-TOKEN" /><meta name="_csrf" content="b395233a-5b26-4ea6-a873-43431d279e43" />
+       <meta charset=""/>
+       <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+       <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link href="css/normalize.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- recommended by compass -->
+    <link href="css/screen.css" media="screen, projection" rel="stylesheet"
+          type="text/css"/>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="css/font-awesome.min.css"
+          rel="stylesheet">
+
+    <link href="css/style.css" media="screen" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="css/query-builder.default.css">
+    <!--Cron UI -->
+
+    <link href="css/cron-gen.min.css" rel="stylesheet">
+    <!--[if IE]>
+    <link href="/hilitcss/ie.css" media="screen, projection"
+          rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <!-- end of compass code recommendation -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script src="js/userSession.js"></script>
+    <title>Staus</title>
+    <link href="css/bootstrap-dialog.min.css" rel="stylesheet"  type="text/css"/>
+    <link href="css/buttons.bootstrap.css" rel="stylesheet"  type="text/css"/>
+    <link href="css/toggle-switch.css" rel="stylesheet"  type="text/css"/>
+    <style>
+        .reviewnButton{
+    position: relative;
+}
+    </style>
+    <script>
+        function closeModal(){
+            $('#processReportModal').modal('hide');
+        }
+    </script>
+</head>
+
+<body class="backdrop">
+<div id="pageheader">
+    <header id="main-header">
+        <div class="container-fluid">
+            <div id="logo"><a href="/hilit/user/dashboard.jsp"><img
+                    src="images/hilit-logo1.png"/></a></div>
+
+                     <nav id="main-menu-container">
+                            <ul id="main-menu">
+            
+                                    <li><a href="#"><i class="fa fa-link fa-fw" aria-hidden="true"></i>&nbsp; Services</a>
+                                        <ul>
+                                            
+                                               <li>
+											   <a href="#"><i class="fa fa-link fa-fw" aria-hidden="true"></i>&nbsp; Rep Submitter</a>
+											   <ul>
+											                                                   <li>
+                                                        <a href="pendingReport.html">
+                                                             Pending Reports
+                                                        </a>
+                                                            
+                                                    </li>
+
+                                                    <li>
+                                                            <a href="archivedReports.html">
+                                                                 Archived Reports
+                                                            </a>
+                                                                
+                                                        </li>
+
+                                                        <li>
+                                                                <a href="distributedReports.html">
+                                                                    Distributed Reports
+                                                                </a>
+                                                                    
+                                                            </li>
+											   </ul>
+											   </li>
+
+            
+                                        </ul>
+                                    </li>
+            
+                                    <li><a href="#"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; My Account</a>
+                                        <ul style="width:210px!important">
+                                            <!--                                 Previously added html to li tag -->
+                                            <div class="menuitem">
+                                                <table>
+                                                    <tr>
+                                                        <td style="padding: 0px 10px 0px 0px;vertical-align: text-top; font-size: 12px; width:81px!important">
+                                                            User Name:
+                                                        </td>
+                                                        <td style="word-wrap: break-word; word-break: break-all; font-size: 12px;"> {{currentUser}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 0px 10px 0px 0px;vertical-align: text-top; font-size: 12px;">
+                                                            Company:
+                                                        </td>
+                                                        <td style="word-wrap: break-word; word-break: break-all; font-size: 12px;"> vitrana </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                
+            
+            
+                                <li>
+                                    
+                                    
+                                    
+                                    
+                                        
+                                        
+                                            <form id="logoutform" action="/hilit/j_spring_security_logout" method="post">
+                                                <input type="hidden" name="_csrf" value="b395233a-5b26-4ea6-a873-43431d279e43" />
+                                            </form>
+                                        
+                                    
+                                    
+            
+                                    <a ng-click="logOut('/login')"><i class="fa fa-sign-out fa-fw"
+                                                                                                   aria-hidden="true"></i>&nbsp; Log
+                                        Out</a>
+                                    <input type="hidden" id="hdnOffice365User" value="false"/>
+                                    <input type="hidden" id="hdnSessionTimeout"
+                                           value="null"/>
+                                    <input type="hidden" id="hdnIsAdmin" value="true"/>
+                                    <input type="hidden" id="hdnIsParent" value="true"/>
+                                </li>
+            
+                            </ul>
+                        </nav>
+        </div>
+    </header>
+</div>
+
+<div id="body">
+    <div id="subhead-container" class="container-fluid" style="margin-top: 50px;">
+        <div class="subhead col-md-6">
+            <h2> Pending Reports </h2>
+        </div> <!-- .subhead -->
+        <div class="col-md-6 text-right">
+            <div class="mt-1">
+                <button class="btn btn-xs btn-default mr-0"><i class="fa fa-refresh"></i> Refresh</button>
+                <button class="btn btn-xs btn-default mr-0"><i class="fa fa-upload"></i>  Upload</button>
+            </div>
+        </div>
+    </div> <!--.subhead-container -->
+    <div class="main-container" style="margin-top: 0">
+
+            <div class="search-criteria">
+                    <div class="search-heading">SEARCH CRITERIA</div>
+                    <div id="filter-form" class="form-search">
+                        <div class="filter-form clearfix">
+                            <div class="col-sm-2">
+                                <label>Form Type</label>
+                                <taira-multiselect model="userList" options="nameList" class="taira dropdownul ng-isolate-scope" settings="settings" ext-link=""><!-- ngInclude: --><ng-include src="getTemplate()" class="ng-scope"><div class="btn-group " uib-dropdown="" auto-close="disabled" is-open="_settings.list.opened"><button type="button" class="btn btn btn-default" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">None Selected <span class="caret" style="position: absolute; right: 5px; top: 10px"></span></button><ul class="dropdown-menu " uib-dropdown-menu="" role="menu" aria-labelledby="single-button"><!-- ngIf: _settings.extra.selectAll --><!-- ngIf: _settings.extra.unselectAll --><!-- ngIf: _settings.extra.unselectAll || _settings.extra.selectAll --><!-- ngRepeat: option in options --><li ng-repeat="option in options" role="menuitem" ng-class="{'': isChecked(option)}" class="ng-scope"><label for="0"><a href=""><!-- ngIf: _settings.extra.showCheckbox --><input id="0" type="checkbox" ng-if="_settings.extra.showCheckbox" ng-click="checkboxClick($event, option)" ng-checked="isChecked(option)" class="ng-scope"><!-- end ngIf: _settings.extra.showCheckbox -->&nbsp;<span ng-bind-html="getDisplayText(option)" class="ng-binding">sd</span></a></label></li><!-- end ngRepeat: option in options --></ul></div></ng-include></taira-multiselect>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label>Protocol</label>
+                                <taira-multiselect model="protocolList" options="protocolNameList" class="taira dropdownul ng-isolate-scope" settings="settings2" ext-link=""><!-- ngInclude: --><ng-include src="getTemplate()" class="ng-scope"><div class="btn-group " uib-dropdown="" auto-close="disabled" is-open="_settings.list.opened"><button type="button" class="btn btn btn-default" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">None Selected <span class="caret" style="position: absolute; right: 5px; top: 10px"></span></button><ul class="dropdown-menu " uib-dropdown-menu="" role="menu" aria-labelledby="single-button"><!-- ngIf: _settings.extra.selectAll --><!-- ngIf: _settings.extra.unselectAll --><!-- ngIf: _settings.extra.unselectAll || _settings.extra.selectAll --><!-- ngRepeat: option in options --><li ng-repeat="option in options" role="menuitem" ng-class="{'': isChecked(option)}" class="ng-scope"><label for="0"><a href=""><!-- ngIf: _settings.extra.showCheckbox --><input id="0" type="checkbox" ng-if="_settings.extra.showCheckbox" ng-click="checkboxClick($event, option)" ng-checked="isChecked(option)" class="ng-scope"><!-- end ngIf: _settings.extra.showCheckbox -->&nbsp;<span ng-bind-html="getDisplayText(option)" class="ng-binding">sd</span></a></label></li><!-- end ngRepeat: option in options --></ul></div></ng-include></taira-multiselect>
+                            </div>
+                                
+
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label>Date Range</label>
+                                        <select name="dateFilter" ng-model="dateFilterValue" id="dateFilter" class="qc-form-fld category form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-change="setDateValues()">
+                                            <option selected="selected" value="0">Custom Date Range</option>
+                                            <option value="1">Last Week</option>
+                                            <option value="2">Last Fortnight</option>
+                                            <option value="3">Last Month</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>From Date</label>
+                                        <span class="date-time-container">
+                                        <input ng-model="fromDate" ng-paste="$event.preventDefault()" ng-keydown="$event.preventDefault()" ng-disabled="disableDatePicker" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-date" id="fromDate" start-date="" end-date="2-8-2019" datetime-picker="" date-format="yyyy/MM/dd HH:mm:ss">
+                                        <i class="fa fa-calendar"></i>
+                                        </span>
+                                            
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>To Date</label>
+                                        <span class="date-time-container">
+                                        <input ng-model="toDate" ng-paste="$event.preventDefault()" ng-keydown="$event.preventDefault()" ng-disabled="disableDatePicker" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-date" id="toDate" datetime-picker="" start-date="2-8-2019" end-date="" date-format="yyyy/MM/dd HH:mm:ss">
+                                        <i class="fa fa-calendar"></i>
+                                        </span>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div id="qc-buttons" class="search-buttons">
+                                    <div id="searchdiv">
+                                        <input type="submit" value="Search" ng-click="searchHandler()" class="btn btn-success">
+                                        <input type="button" id="btnClear" value="Clear" class="btn btn-default" ng-click="clearHandler()">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            <div class="content-area container-fluid" id="main-container">
+                <div id="table-container">
+                    
+                    <div class="scrollablediv">
+                        <table id="userListTab1" class="table datagrid fixed-bar" border="0">
+                            <thead>
+                            <tr class="table-header">
+                                
+                                    <!-- ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope" style="">
+                                        <span class="ng-binding">
+
+                                          Form Type
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                        <span class="ng-binding">
+
+                                          Report Name
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                        <span class="ng-binding">
+
+                                          Date Transmitted
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                        <span class="ng-binding">
+
+                                          Product Name
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                        <span class="ng-binding">
+
+                                          Protocol Number
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                        <span class="ng-binding">
+
+                                          Project id
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels --><th ng-click="sort(data.keyName)" ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                        <span class="ng-binding">
+
+                                          Aware Date
+                                        </span>
+                                    </th><!-- end ngRepeat: data in gridLabels -->
+                                
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                                <!-- ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope" style="">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by form_type">
+                                </td><!-- end ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by report_name">
+                                </td><!-- end ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by date_transmitted">
+                                </td><!-- end ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by product_name">
+                                </td><!-- end ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by protocol_name">
+                                </td><!-- end ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by Project_id">
+                                </td><!-- end ngRepeat: data in gridLabels --><td ng-repeat="data in gridLabels" class="grid-labels ng-scope">
+                                    <input type="text" class="form-control data-input-text ng-pristine ng-untouched ng-valid ng-empty" id="safety Id" name="search" ng-model="search[data.keyName]" placeholder="Filter by aware_date">
+                                </td><!-- end ngRepeat: data in gridLabels -->
+                            </tr>
+
+                            <!-- ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope" style="">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Spanish Clinical</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">Spanish Clinical Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019 9:52:08 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Abilify Maintena</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">SC</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">SC100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                            <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+                            </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Canadian Device Form</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">Canadian Device Form Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019 8:52:02 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Alfatradiol</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CDF</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CDF100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">German PEI Form 643</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">German PEI Form 643 Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019 8:36:01 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Atarax</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">GPF</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">GPF100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                            <button reset-accordion="" class="reviewnButton btn btn-xs" data-toggle="modal" data-target="#processReportModal"  ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+                            </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">MHRA Spontaneous</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">MHRA Spontaneous Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019 8:08:02 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CLOPIDOGREL</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">MS</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">MS100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">1/17/2019</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Case Listing</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">Case Listing Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">12/14/2018 12:39:52 PM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Cravit</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CL</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CL100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">12/14/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CIOMS-I</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">CIOMS-I Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">12/14/2018 12:09:50 PM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Dogmatile</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CI</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CI100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">12/14/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">EU EMEA Clinical</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">EU EMEA Clinical Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">12/14/2018 12:09:49 PM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Fabric</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">EEC</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">EEC100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">4/27/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">EU EMEA Spontaneous</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">EU EMEA Spontaneous Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/24/2018 11:11:46 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Fan guard</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">EES</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">EES100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/20/2017</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Spanish Spontaneous</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">Spanish Spontaneous Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/20/2018 10:05:00 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Fludara</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">SS</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">SS100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">8/13/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Open Action Items</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">Open Action Items Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/20/2018 9:55:02 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Gikasu</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">OAI</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">OAI100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">8/13/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">MHRA Clinical</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">MHRA Clinical Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/20/2018 9:53:00 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">Granisetron</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">MC</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">MC100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">8/13/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index --><tr ng-class="{'freezed': data.isFreezed, 'alert alert-danger': data.is_duplicate}" ng-repeat="data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index" class="ng-scope">
+
+                                <!-- ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CIOMS-I (Local)</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' --><a href="#" ng-if="key == 'report_name'" class="ng-binding ng-scope">CIOMS-I (Local) Report</a><!-- end ngIf: key == 'report_name' -->
+                                     
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/17/2018 11:35:42 AM</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">HI-Z</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CIL</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">CIL100</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data --><td ng-repeat="(key, value) in data" class="ng-scope">
+                                    <!-- ngIf: key == 'report_name' -->
+                                     <span ng-hide="key == 'report_name'" "="" class="ng-binding">9/17/2018</span>
+
+                            </td><!-- end ngRepeat: (key, value) in data -->
+                            
+                            <td>
+
+                                <button data-toggle="modal" data-target="#processReportModal" reset-accordion="" class="reviewnButton btn btn-xs" ng-click="process_report(data, $index)" ng-hide="data.isFreezed">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+
+                        </tr><!-- end ngRepeat: data in reports|orderBy:sortKey:reverse|filter:search|itemsPerPage:12 track by $index -->
+                        
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <!--end of #table-container -->
+
+                <div id="processReportModal" class="modal fade" role="dialog"
+                     data-backdrop="static"
+                     data-keyboard="false" data-dismiss="modal">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title pull-left">
+                                    <div>Process Report</div>
+                                </h2>
+                                <div class="pull-right">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="close" ng-click="closeModal('uploadFile')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                        <table>
+                                            <tr>  <td class="text-right">Report Name</td>      <td>{{Report Name}}</td>            </tr>
+                                            <tr>  <td class="text-right">Product</td>          <td>{{Product}}</td>                </tr>
+                                            <tr>  <td class="text-right">Protocol</td>         <td>{{Protocol}}</td>               </tr>
+                                            <tr>  <td class="text-right">Project</td>          <td>{{Project}}</td>                </tr>
+                                            <tr>  <td class="text-right">Aware Date</td>       <td>{{Aware Date}}</td>             </tr>
+                                            <tr>  <td class="text-right">Investigator(s)</td>  <td>{{Investigator Details}}</td>   </tr>
+                                            <tr> <td></td>                  
+                                                <td>
+                                                </td>     
+                                            </tr>
+                                        </table>
+                                        <div class="modal-footer">
+                                           
+                                                    
+                                                <button onclick="closeModal()" class="btn btn-xs btn-success" ><i class="fa fa-paper-plane-o " aria-hidden="true"></i> Regular Submission</button>
+                                                <button onclick="closeModal()" class="btn btn-xs btn-success" ><i class="fa fa-envelope-o" aria-hidden="true"></i> BCP Submission</button>
+                                                <button onclick="closeModal()" class="btn btn-xs btn-primary" > <i class="fa fa-archive" aria-hidden="true"></i> Archive</button>
+                                           
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="unfreezModel" class="modal fade SDTM-version" role="dialog"
+                     data-backdrop="static"
+                     data-keyboard="false" data-dismiss="modal">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div ng-cloak class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title pull-left">
+                                    <div>{{model.title}}</div>
+                                </h2>
+                            </div>
+                            <div class="modal-body">
+                                <form name="unfreezModel" action="#" role="form">
+                                    <div class="form-group clearfix">
+                                        <div class="required col-sm-12">
+                                            <label for="sel1">{{model.text}}</label>
+                                            <textarea class="form-control" ng-model="model.reason" name="reason" required></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success p-28" ng-disabled = "model.reason == undefined || model.reason.length <= 0" ng-click="changeStudyStatus(model)" data-dismiss="modal" >Save <i class="fa fa-eraser"></i></button>
+                                <button type="button" class="btn btn-md btn-default p-7"
+                                        ng-click="closeModalunfreeze('unfreezModel')">
+                                    Cancel <i class="fa fa-close"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> 
+                <!-- #unfreezModel -->
+
+                <div class="bottom-controls container">
+                    <div ng-hide="!(studyData| filter:search).length" ng-cloak class="row">
+                        <div class="col-md-4"><span>Showing {{(currentPageNumber-1)*recordsPerPage+  1}} to {{(currentPageNumber-1)*recordsPerPage + currPageRecordsCount}} of {{totalCount}} entries</span>
+                        </div>
+                        <div class="col-md-12">
+                            <nav area-label="Page navigation">
+                                <dir-pagination-controls class="pagination pagination-sm"
+                                    current-page="currentPageNumber"
+                                    max-size="5" direction-links="true"
+                                    boundary-links="true"
+                                    on-page-change="pageChanged(newPageNumber)">
+                                </dir-pagination-controls>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+</div>
+
+<div id="processReportModal" class="modal fade" role="dialog"
+                     data-backdrop="static"
+                     data-keyboard="false" data-dismiss="modal">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title pull-left">
+                                    <div>Process Report</div>
+                                </h2>
+                                <div class="pull-right">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="close" ng-click="closeModal('uploadFile')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                        <table>
+                                            <tr>  <td class="text-right">Report Name</td>      <td>{{processReport.report_name}}</td>            </tr>
+                                            <tr>  <td class="text-right">Product</td>          <td>{{processReport.prd_name}}</td>                </tr>
+                                            <tr>  <td class="text-right">Protocol</td>         <td>{{processReport.protocol}}</td>               </tr>
+                                            <tr>  <td class="text-right">Project</td>          <td>{{processReport.prd_name}}</td>                </tr>
+                                            <tr>  <td class="text-right">Aware Date</td>       <td>{{processReport.prj_id}}</td>             </tr>
+                                            <tr>  <td class="text-right">Investigator(s)</td>  <td>{{processReport.aware_date}}</td>   </tr>
+                                            <tr> <td></td>                  
+                                                <td>
+                                                </td>     
+                                            </tr>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center mt-1">
+                                                    <!-- <button class="btn btn-xs btn-info" 
+                                                        ng-click="downloadFile()"
+                                                        title="Download file">
+                                                        <i class="fa fa-download"></i> Download
+                                                    </button> -->
+                                                <button class="btn btn-xs btn-success" ng-click="BSPsubmit(processReport.index)"><i class="fa fa-paper-plane-o " aria-hidden="true"></i> Regular Submission</button>
+                                                <button class="btn btn-xs btn-success" ng-click="BSPsubmit(processReport.index)"><i class="fa fa-envelope-o" aria-hidden="true"></i> BCP Submission</button>
+                                                <button class="btn btn-xs btn-primary" ng-click="noSubmit(processReport.index)"> <i class="fa fa-archive" aria-hidden="true"></i> Archive</button>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<div id="pagefooter">
+    <div class="container text-center">
+        <noscript>
+            <style>
+                .loader {
+                    display: none;
+                }
+            </style>
+            <p>Please enable javascript in your browser.</p>
+        </noscript>
+    </div>
+    <footer>Copyright &copy; 2018 by Vitrana, All rights reserved.</footer>    
+</div>
+</body>
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-dialog.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/common.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/jspdf.js"></script>
+<script src="js/pdf.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/query-builder.js"></script>
